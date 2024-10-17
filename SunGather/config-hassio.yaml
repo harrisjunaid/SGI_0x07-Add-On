@@ -4,7 +4,7 @@ inverter:
   port: 502                               # [Optional] Default for modbus is 502, for http is 8082
   model: "SG250HX"                        # [Optional] This is autodetected on startup, only needed if detection issues or for testing
   #serial: "A2390800745"                      # [Optional] This is autodetected on startup, only needed if detection issues or for testing, used as a unique ID
-  slave: 0x07                             # [Optional] Default is 0x07
+  slave: 0x07                             # [Optional] Default is 0x01
   level: 3                                # [Optional] Set the amount of information to gather
   scan_interval: 30                       # [Optional] Default is 30
   # retries: 3                              # [Optional] Default is 3, how many times to retry if connection fails
@@ -64,7 +64,7 @@ exports:
     port: 1883
     username: "mqtt-sungrow"
     password: "1122qqww"
-    # client_id: "sungrow-0x07" # OR set by mqtt.py self.mqtt_config = {...}
+    # client_id: "sungrow-0x01" # OR set by mqtt.py self.mqtt_config = {...}
     homeassistant: True
   # Read by publish(self, invereter) in mqtt.py
     ha_sensors:
@@ -82,9 +82,9 @@ exports:
         state_class: measurement
 
       - name: "Daily Running Time"
-        sensor_type: holding
+        sensor_type: sensor
         register: daily_running_time
-        device_class: timestamp
+        device_class: duration
         state_class: measurement
         unit_of_measurement: "h"
         icon: "mdi:clock-outline"
@@ -104,9 +104,9 @@ exports:
         icon: "mdi:solar-power"
 
       - name: "Total Running Time"
-        sensor_type: holding
+        sensor_type: sensor
         register: total_running_time
-        device_class: timestamp
+        device_class: duration
         state_class: measurement
         unit_of_measurement: "h"
         icon: "mdi:clock-outline"
@@ -194,14 +194,14 @@ exports:
 #       register:
 
 #    group:
-#      inverter_0x07:
-#        name: "Inverter-0x07"
+#      inverter_0x01:
+#        name: "Inverter-0x01"
 #        entities:
-#          - sensor.0x07_daily_power_yields_{{ serial_number }}
-#          - sensor.0x07_daily_export_to_grid_{{ serial_number }}
-#          - sensor.0x07_daily_import_from_grid_{{ serial_number }}
-#          - sensor.0x07_internal_temperature_{{ serial_number }}
-#          - binary_sensor.0x07_run_state_{{ serial_number }}
-#          - sensor.0x07_total_active_power_{{ serial_number }}
-#          - sensor.0x07_export_to_grid_{{ serial_number }}
-#          - sensor.0x07_import_from_grid_{{ serial_number }}
+#          - sensor.0x01_daily_power_yields_{{ serial_number }}
+#          - sensor.0x01_daily_export_to_grid_{{ serial_number }}
+#          - sensor.0x01_daily_import_from_grid_{{ serial_number }}
+#          - sensor.0x01_internal_temperature_{{ serial_number }}
+#          - binary_sensor.0x01_run_state_{{ serial_number }}
+#          - sensor.0x01_total_active_power_{{ serial_number }}
+#          - sensor.0x01_export_to_grid_{{ serial_number }}
+#          - sensor.0x01_import_from_grid_{{ serial_number }}
